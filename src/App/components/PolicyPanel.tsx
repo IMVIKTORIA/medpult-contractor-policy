@@ -25,7 +25,7 @@ function PolicyPanel() {
       "medpultPathBefore",
       window.location.pathname + window.location.search
     );
-    localStorage.setItem("medpultPolicyId", policyId);
+    localStorage.setItem("medpult-treaty-id", policyId);
     //localStorage.setItem(localStorageDraftKey, JSON.stringify(data));
     // Переход
     const link = Scripts.getPolicyPageCode();
