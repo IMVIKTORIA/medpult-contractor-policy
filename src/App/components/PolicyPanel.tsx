@@ -25,12 +25,17 @@ function PolicyPanel() {
       "medpultPathBefore",
       window.location.pathname + window.location.search
     );
-    localStorage.setItem("medpult-treaty-id", policyId);
-    //localStorage.setItem(localStorageDraftKey, JSON.stringify(data));
-    // Переход
-    const link = Scripts.getPolicyPageCode();
+
+    // Получение id договора по идентификатору полиса
+    const treatyId = await Scripts.getTreatyIdByPolicyId(policyId)
+    if(!treatyId) return;
+
+    // Переход на договор
+    localStorage.setItem("medpult-treaty-id", treatyId);
+    const link = Scripts.getTreatyPageCode();
     redirectSPA(link);
   };
+
   /** Колонки списка */
   const columns = [
     new ListColumnData({
@@ -70,6 +75,7 @@ function PolicyPanel() {
   useEffect(() => {
     fetchElementsCount();
   }, []);
+
   return (
     <div>
       <Panel label={`Страховые полисы (${elementsCount})`} isOpen={false}>

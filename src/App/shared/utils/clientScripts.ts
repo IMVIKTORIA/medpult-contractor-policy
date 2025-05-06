@@ -41,14 +41,19 @@ async function getCountPolicy() {
   return 3;
 }
 
-declare const Context: any;
-/** Получение кода страницы договора */
-function getPolicyPageCode(): string {
-  return Context.data.contractors_page_path ?? "";
+/** Получить id договора по id полиса */
+async function getTreatyIdByPolicyId(policyId: string): Promise<string | undefined> {
+  return "placehloder"
 }
 
+declare const Context: any;
+/** Получение кода страницы договора */
+function getTreatyPageCode(): string {
+  return Context.data.insurance_treaty_page_code ?? "";
+}
 export default {
   getPolicy,
   getCountPolicy,
-  getPolicyPageCode,
+  getTreatyPageCode,
+  getTreatyIdByPolicyId,
 };
