@@ -9,7 +9,7 @@ interface ListColumnProps extends ListColumnData {
 }
 
 function CustomListRowColumn(props: ListColumnProps) {
-  const { fr, data, isLink, onClick, isIcon } = props;
+  const { fr, fixedWidth, contentPadding, data, isLink, onClick, isIcon } = props;
 
   const onClickColumn =
     isLink && onClick
@@ -27,10 +27,11 @@ function CustomListRowColumn(props: ListColumnProps) {
           : "custom-list-row-column"
       }
       style={{
-        flex: fr,
         overflow: "visible",
         whiteSpace: "normal",
         wordBreak: "break-word",
+        ...(fixedWidth ? { width: fixedWidth } : { flex: fr }),
+        ...(contentPadding && {padding: contentPadding})
       }}
     >
       <span
@@ -38,7 +39,7 @@ function CustomListRowColumn(props: ListColumnProps) {
         onClick={onClickColumn}
         style={{ cursor: isIcon ? "pointer" : "default" }}
       >
-        {isIcon && iconToShow}
+        {isIcon && data && iconToShow}
         {!isIcon && data.value}
       </span>
     </div>

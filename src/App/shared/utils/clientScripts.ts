@@ -21,7 +21,6 @@ async function getPolicy(): Promise<FetchData<PolicyListData>> {
     policy: new ItemData({ value: "008WS000000001", info: "test" }),
     termPolicy: new ItemDataString("28.02.2024-28.03.2024"),
     productPolicy: new ItemData({ value: "ЗОК-ФЛ-СбОЛ", info: "test" }),
-    files: [],
   };
 
   return {
@@ -30,7 +29,10 @@ async function getPolicy(): Promise<FetchData<PolicyListData>> {
       .map((data, index) => {
         return {
           id: String(index),
-          data: new PolicyListData(mockData),
+          data: {
+            ...new PolicyListData(mockData),
+            fileId: Math.random() > 0.5 ? "test" : undefined
+          },
         };
       }),
     hasMore: false,
