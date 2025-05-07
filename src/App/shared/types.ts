@@ -10,7 +10,7 @@ export class PolicyListData {
   termPolicy?: ItemDataString;
   /** Телефон */
   productPolicy?: ItemData;
-  files?: [];
+  fileId?: string;
 
   constructor({ policy, termPolicy, productPolicy }: PolicyListData) {
     this.policy = policy;

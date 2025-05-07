@@ -4,6 +4,7 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
+  padding: 16px;
 
   &__name {
     text-overflow: ellipsis;
@@ -14,7 +15,7 @@
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
-    line-height: 130%;
+    line-height: 20px;
     letter-spacing: 0.0025em;
     text-transform: uppercase;
     color: #959599;

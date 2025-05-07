@@ -57,8 +57,10 @@ function PolicyPanel() {
     }),
     new ListColumnData({
       name: "",
-      code: "files",
-      fr: 0.5,
+      code: "fileId",
+      // fr: 0.5,
+      fixedWidth: "56px",
+      contentPadding: "13px 16px",
       isIcon: true,
       isLink: true,
       onClick: onSaveFile,
