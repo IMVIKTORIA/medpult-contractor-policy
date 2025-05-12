@@ -215,17 +215,17 @@ function CustomList<SearchDataType = any, ItemType = any>(
   };
 
   return (
-    <div className="custom-list">
+    <div className="custom-list-mcp">
       <div
         className={
-          isScrollable ? "custom-list__body_scrollable" : "custom-list__body"
+          isScrollable ? "custom-list-mcp__body_scrollable" : "custom-list-mcp__body"
         }
         style={{ height: height }}
         ref={bodyRef}
         onScroll={onScroll}
       >
         <div
-          className="custom-list__body-wrapper"
+          className="custom-list-mcp__body-wrapper"
           style={
             listWidth
               ? {

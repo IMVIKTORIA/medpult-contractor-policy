@@ -68,12 +68,12 @@ function CustomListRow<ItemType = any>(props: ListRowProps<ItemType>) {
   const getRowClassname = (): string => {
     // Показана детальная информация
     if ((getDetailsLayout && isShowDetails) || isOpen)
-      return "custom-list-row custom-list-row_open";
+      return "custom-list-row-mcp custom-list-row-mcp_open";
     // Скрыта детальная информация, можно развернуть
     if (getDetailsLayout || isClickable)
-      return "custom-list-row custom-list-row_openable";
+      return "custom-list-row-mcp custom-list-row-mcp_openable";
     // Нельзя развернуть детальную информацию
-    return "custom-list-row";
+    return "custom-list-row-mcp";
   };
 
   const rowStyles: React.CSSProperties = {

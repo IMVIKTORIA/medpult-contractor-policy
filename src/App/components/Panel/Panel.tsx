@@ -14,8 +14,8 @@ function Panel({ children, label = "", isRollable = true, isOpen = true }) {
 		triangleElement = <span
 			className={
 				isPanelOpen
-					? "medpult-panel__triangle medpult-panel__triangle_open"
-					: "medpult-panel__triangle"
+					? "medpult-panel-mcp__triangle medpult-panel-mcp__triangle_open"
+					: "medpult-panel-mcp__triangle"
 			}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" fill="#2f91e3" height="20px" width="20px" version="1.1" id="Capa_1" viewBox="0 0 490 490" xml:space="preserve">
@@ -25,11 +25,11 @@ function Panel({ children, label = "", isRollable = true, isOpen = true }) {
 	}
 
 	return (
-		<div className="medpult-panel">
+		<div className="medpult-panel-mcp">
 			<div className={
 				isPanelOpen
-					? "medpult-panel__header"
-					: "medpult-panel__header medpult-panel__header_closed"
+					? "medpult-panel-mcp__header"
+					: "medpult-panel-mcp__header medpult-panel-mcp__header_closed"
 			}
 				style={
 					isRollable
@@ -38,13 +38,13 @@ function Panel({ children, label = "", isRollable = true, isOpen = true }) {
 				}
 				onClick={handleClick}
 			>
-				<span className="medpult-panel__label">{label}</span>
+				<span className="medpult-panel-mcp__label">{label}</span>
 				{triangleElement}
 			</div>
 			<div className={
 				isPanelOpen
-					? "medpult-panel__content"
-					: "medpult-panel__content_hidden"
+					? "medpult-panel-mcp__content"
+					: "medpult-panel-mcp__content_hidden"
 			}>
 				{children}
 			</div>
