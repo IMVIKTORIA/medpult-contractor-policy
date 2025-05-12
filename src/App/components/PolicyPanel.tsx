@@ -31,8 +31,11 @@ function PolicyPanel() {
     if(!treatyId) return;
 
     // Переход на договор
+    const contractId = Scripts.getContractId()
+    localStorage.setItem("medpult-treaty-insured-id-draft", contractId);
     localStorage.setItem("medpult-treaty-id", treatyId);
     const link = Scripts.getTreatyPageCode();
+    
     redirectSPA(link);
   };
 

@@ -53,9 +53,16 @@ declare const Context: any;
 function getTreatyPageCode(): string {
   return Context.data.insurance_treaty_page_code ?? "";
 }
+
+/** Установить идентификатор застрахованного для перехода на форму договора */
+function getContractId(): string {
+  return "contract_id"
+}
+
 export default {
   getPolicy,
   getCountPolicy,
   getTreatyPageCode,
   getTreatyIdByPolicyId,
+  getContractId,
 };
