@@ -10,11 +10,32 @@ export class PolicyListData {
   termPolicy?: ItemDataString;
   /** Телефон */
   productPolicy?: ItemData;
-  fileId?: string;
+  /** Файлы */
+  files?: FilesData[];
 
   constructor({ policy, termPolicy, productPolicy }: PolicyListData) {
     this.policy = policy;
     this.termPolicy = termPolicy;
     this.productPolicy = productPolicy;
   }
+}
+
+/** Данные вложений */
+export class FilesData {
+	/** Идентификатор файла */
+	id: string;
+	/** Ссылка на скачивание файла */
+	fileDownloadURL: string
+	/** Дата файла */
+	dateFiles: ItemDataString
+	/** Название файла */
+	nameFiles: ItemDataString
+	/** Тип */
+	documenType: ItemDataString
+
+	constructor() {
+		this.dateFiles = new ItemDataString('')
+		this.nameFiles = new ItemDataString('')
+		this.documenType = new ItemDataString('')
+	}
 }

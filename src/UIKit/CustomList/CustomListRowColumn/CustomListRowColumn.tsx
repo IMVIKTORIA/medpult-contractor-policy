@@ -39,7 +39,7 @@ function CustomListRowColumn(props: ListColumnProps) {
         onClick={onClickColumn}
         style={{ cursor: isIcon ? "pointer" : "default" }}
       >
-        {isIcon && data && iconToShow}
+        {isIcon && (data as any)?.length > 0 && iconToShow}
         {!isIcon && data.value}
       </span>
     </div>

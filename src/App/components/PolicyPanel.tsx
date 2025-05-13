@@ -6,14 +6,17 @@ import {
 } from "../../UIKit/CustomList/CustomListTypes";
 import CustomList from "../../UIKit/CustomList/CustomList";
 import Scripts from "../shared/utils/clientScripts";
-import utils, { redirectSPA } from "../shared/utils/utils";
+import utils, { onClickDownloadFileByUrl, redirectSPA } from "../shared/utils/utils";
+import { FilesData } from "../shared/types";
 
 /** Проект письма */
 function PolicyPanel() {
-  /** Скачать файл */
-  const onSaveFile = async () => {
-    console.log("качаем файл");
-  };
+
+  function handleDownloadMultipleFiles(files: FilesData[]) {
+    for(const file of files) {
+      onClickDownloadFileByUrl(file.fileDownloadURL, file.nameFiles.value)
+    }
+  }
 
   /** Обработчик нажатия на номер полиса */
   const onClickNumberPolicy = async (props: ItemData) => {
@@ -60,13 +63,12 @@ function PolicyPanel() {
     }),
     new ListColumnData({
       name: "",
-      code: "fileId",
-      // fr: 0.5,
+      code: "files",
       fixedWidth: "56px",
       contentPadding: "13px 16px",
       isIcon: true,
       isLink: true,
-      onClick: onSaveFile,
+      onClick: handleDownloadMultipleFiles,
     }),
   ];
 
