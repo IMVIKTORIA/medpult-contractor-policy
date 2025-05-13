@@ -3,7 +3,7 @@ import {
   ItemData,
   ItemDataString,
 } from "../../../UIKit/CustomList/CustomListTypes";
-import { PolicyListData } from "../types";
+import { FilesData, PolicyListData } from "../types";
 
 /** Заглушка ожидания ответа сервера */
 function randomDelay() {
@@ -31,7 +31,23 @@ async function getPolicy(): Promise<FetchData<PolicyListData>> {
           id: String(index),
           data: {
             ...new PolicyListData(mockData),
-            fileId: Math.random() > 0.5 ? "test" : undefined
+            files:
+              Math.random() > 0.5
+                ? [
+                    {
+                      ...new FilesData(),
+                      fileDownloadURL:
+                        "https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg",
+                      nameFiles: new ItemDataString("file1"),
+                    },
+                    {
+                      ...new FilesData(),
+                      fileDownloadURL:
+                        "https://t3.ftcdn.net/jpg/02/36/99/22/360_F_236992283_sNOxCVQeFLd5pdqaKGh8DRGMZy7P4XKm.jpg",
+                      nameFiles: new ItemDataString("file2"),
+                    },
+                  ]
+                : undefined,
           },
         };
       }),

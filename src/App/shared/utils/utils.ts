@@ -245,6 +245,27 @@ export const removeChildNodes = (selectedIds: string[], node: JsonDataType) => {
   return filteredIds;
 };
 
+/** Скачать файл по URL */
+export async function onClickDownloadFileByUrl(url?: string, fileName?: string) {
+	try {
+		if(!url) return;
+
+		const response = await fetch(url);
+		const blob = await response.blob();
+		const link = document.createElement("a");
+
+		link.href = URL.createObjectURL(blob);
+		link.download = fileName || url.substring(url.lastIndexOf("/") + 1);
+
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(link.href); // Освобождаем URL, созданный createObjectURL
+    } catch (error) {
+		console.error("Ошибка при скачивании файла:", error);
+    }
+}
+
 export default {
   redirectSPA,
   setRequest,
