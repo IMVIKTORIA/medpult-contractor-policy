@@ -75,10 +75,22 @@ function getContractId(): string {
   return "contract_id"
 }
 
+/** Скачать файл из внешней системы */
+async function downloadFileBucket(url: string, fileName: string): Promise<{arrayBuffer: ArrayBuffer;contentType: string;}> {
+	// TODO
+	const file = await fetch(url);
+
+	return {
+		arrayBuffer: await file.arrayBuffer(),
+		contentType: file.headers.get("content-type") ?? 'application/octet-stream'
+	}
+}
+
 export default {
   getPolicy,
   getCountPolicy,
   getTreatyPageCode,
   getTreatyIdByPolicyId,
   getContractId,
+  downloadFileBucket
 };

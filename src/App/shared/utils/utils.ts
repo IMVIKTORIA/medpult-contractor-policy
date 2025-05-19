@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { localStorageDraftKey } from "./constants";
-import { JsonDataType } from "../types";
+// import { JsonDataType } from "../types";
+import Scripts from './clientScripts'
 
 /** Маршрутизация по SPA */
 export const redirectSPA = (href: string) => {
@@ -95,175 +96,175 @@ export const copy = (text: string) => {
   }
 };
 
-/** Поиск элемента списка в одной ноде по id */
-const findItemByIdSingle = (
-  id: string,
-  node: JsonDataType
-): JsonDataType | undefined => {
-  if (node.id === id) return node;
-  if (!node.children) return;
+// /** Поиск элемента списка в одной ноде по id */
+// const findItemByIdSingle = (
+//   id: string,
+//   node: JsonDataType
+// ): JsonDataType | undefined => {
+//   if (node.id === id) return node;
+//   if (!node.children) return;
 
-  for (const child of node.children) {
-    const findNode = findItemByIdSingle(id, child);
-    if (findNode) return findNode;
-  }
-};
+//   for (const child of node.children) {
+//     const findNode = findItemByIdSingle(id, child);
+//     if (findNode) return findNode;
+//   }
+// };
 
-/** Поиск элемента списка в массиве нод по id */
-export const findItemById = (
-  id: string,
-  nodes: JsonDataType[]
-): JsonDataType | undefined => {
-  for (const node of nodes) {
-    const findNode = findItemByIdSingle(id, node);
-    if (findNode) return findNode;
-  }
-};
+// /** Поиск элемента списка в массиве нод по id */
+// export const findItemById = (
+//   id: string,
+//   nodes: JsonDataType[]
+// ): JsonDataType | undefined => {
+//   for (const node of nodes) {
+//     const findNode = findItemByIdSingle(id, node);
+//     if (findNode) return findNode;
+//   }
+// };
 
-/** Поиск элемента списка в одной ноде по коду  */
-const findItemByCodeSingle = (
-  code: string,
-  node: JsonDataType
-): JsonDataType | undefined => {
-  if (node.code === code) {
-    return node;
-  }
+// /** Поиск элемента списка в одной ноде по коду  */
+// const findItemByCodeSingle = (
+//   code: string,
+//   node: JsonDataType
+// ): JsonDataType | undefined => {
+//   if (node.code === code) {
+//     return node;
+//   }
 
-  if (!node.children?.length) return;
+//   if (!node.children?.length) return;
 
-  for (const child of node.children) {
-    const result = findItemByCodeSingle(code, child);
-    if (result) {
-      return result;
-    }
-  }
-};
+//   for (const child of node.children) {
+//     const result = findItemByCodeSingle(code, child);
+//     if (result) {
+//       return result;
+//     }
+//   }
+// };
 
-/** Поиск элемента списка в массиве нод по коду */
-export const findItemByCode = (
-  code: string,
-  nodes: JsonDataType[]
-): JsonDataType | undefined => {
-  for (const node of nodes) {
-    const findNode = findItemByCodeSingle(code, node);
-    if (findNode) return findNode;
-  }
-};
+// /** Поиск элемента списка в массиве нод по коду */
+// export const findItemByCode = (
+//   code: string,
+//   nodes: JsonDataType[]
+// ): JsonDataType | undefined => {
+//   for (const node of nodes) {
+//     const findNode = findItemByCodeSingle(code, node);
+//     if (findNode) return findNode;
+//   }
+// };
 
-/** Получение всех кодов выбранных элементов */
-export const getAllSelectedCodes = (
-  selectedIds: string[],
-  jsonData: JsonDataType
-) => {
-  const selectedCodes: Set<string> = new Set();
+// /** Получение всех кодов выбранных элементов */
+// export const getAllSelectedCodes = (
+//   selectedIds: string[],
+//   jsonData: JsonDataType
+// ) => {
+//   const selectedCodes: Set<string> = new Set();
 
-  const traverse = (node: JsonDataType) => {
-    if (!node.code) return;
+//   const traverse = (node: JsonDataType) => {
+//     if (!node.code) return;
 
-    if (selectedIds.includes(node.id)) {
-      selectedCodes.add(node.code);
-    }
-    if (node.children && node.children.length > 0) {
-      node.children.forEach(traverse);
+//     if (selectedIds.includes(node.id)) {
+//       selectedCodes.add(node.code);
+//     }
+//     if (node.children && node.children.length > 0) {
+//       node.children.forEach(traverse);
 
-      const allChildrenSelected = node.children.every((child) =>
-        selectedIds.includes(child.id)
-      );
+//       const allChildrenSelected = node.children.every((child) =>
+//         selectedIds.includes(child.id)
+//       );
 
-      // Если все дочерние элементы выбраны, добавляем код родителя и удаляем коды дочерних элементов
-      if (allChildrenSelected) {
-        selectedCodes.add(node.code);
+//       // Если все дочерние элементы выбраны, добавляем код родителя и удаляем коды дочерних элементов
+//       if (allChildrenSelected) {
+//         selectedCodes.add(node.code);
 
-        for (const child of node.children) {
-          if (!child.code) continue;
+//         for (const child of node.children) {
+//           if (!child.code) continue;
 
-          selectedCodes.delete(child.code);
-        }
-      } else {
-        // Если не все дочерние элементы выбраны, удаляем код родителя
-        selectedCodes.delete(node.code);
-      }
-    }
-  };
+//           selectedCodes.delete(child.code);
+//         }
+//       } else {
+//         // Если не все дочерние элементы выбраны, удаляем код родителя
+//         selectedCodes.delete(node.code);
+//       }
+//     }
+//   };
 
-  traverse(jsonData);
-  return Array.from(selectedCodes);
-};
+//   traverse(jsonData);
+//   return Array.from(selectedCodes);
+// };
 
-// Получение всех дочерних id у элемента, включая вложенные
-export const getAllChildIds = (node: JsonDataType): string[] =>
-  node.children?.flatMap((child) => [child.id, ...getAllChildIds(child)]) || [];
+// // Получение всех дочерних id у элемента, включая вложенные
+// export const getAllChildIds = (node: JsonDataType): string[] =>
+//   node.children?.flatMap((child) => [child.id, ...getAllChildIds(child)]) || [];
 
-// Расплющить дерево
-export const flattenTree = (jsonData: JsonDataType) => {
-  let items = [jsonData];
+// // Расплющить дерево
+// export const flattenTree = (jsonData: JsonDataType) => {
+//   let items = [jsonData];
 
-  if (jsonData.children) {
-    for (const child of jsonData.children) {
-      items = [...items, ...flattenTree(child)];
-    }
-  }
+//   if (jsonData.children) {
+//     for (const child of jsonData.children) {
+//       items = [...items, ...flattenTree(child)];
+//     }
+//   }
 
-  return items;
-};
+//   return items;
+// };
 
-// Поиск в справочнике МКБ-10
-export const searchMkbItems = (searchQuery: string, nodes: JsonDataType[]) => {
-	// Сделать из дерева массив
-	const items = nodes.flatMap(flattenTree)
-	const searchQueryProcessed = searchQuery.toLowerCase().trim().normalize()
+// // Поиск в справочнике МКБ-10
+// export const searchMkbItems = (searchQuery: string, nodes: JsonDataType[]) => {
+// 	// Сделать из дерева массив
+// 	const items = nodes.flatMap(flattenTree)
+// 	const searchQueryProcessed = searchQuery.toLowerCase().trim().normalize()
 
-	// Поиск по searchQuery
-	return items.filter((item) => {
-		return (
-			(item.code && item.code.toLowerCase().trim().normalize().includes(searchQueryProcessed)) || // Код
-			(item.fullname && item.fullname.toLowerCase().trim().normalize().includes(searchQueryProcessed)) || // Название
-			(item.comment && item.comment.toLowerCase().trim().normalize().includes(searchQueryProcessed)) // Комментарий
-		)
-	})
-}
+// 	// Поиск по searchQuery
+// 	return items.filter((item) => {
+// 		return (
+// 			(item.code && item.code.toLowerCase().trim().normalize().includes(searchQueryProcessed)) || // Код
+// 			(item.fullname && item.fullname.toLowerCase().trim().normalize().includes(searchQueryProcessed)) || // Название
+// 			(item.comment && item.comment.toLowerCase().trim().normalize().includes(searchQueryProcessed)) // Комментарий
+// 		)
+// 	})
+// }
 
-export const removeChildNodes = (selectedIds: string[], node: JsonDataType) => {
-  // Плоское дерево
-  const flatTree = flattenTree(node);
-  // Отфильтровать дерево по выбранным нодам
-  const filteredFlatTree = flatTree.filter((node) =>
-    selectedIds.find((sid) => sid === node.id)
-  );
-  // Отфильтровать id по родительским нодам
-  let filteredIds = selectedIds.filter((sid) => {
-    // Поиск текущей ноды
-    const flatTreeNode = filteredFlatTree.find((node) => node.id === sid);
-    // Поиск родительской ноды
-    const hasParent = filteredFlatTree.find(
-      (node) => node.id === flatTreeNode?.parentID
-    );
+// export const removeChildNodes = (selectedIds: string[], node: JsonDataType) => {
+//   // Плоское дерево
+//   const flatTree = flattenTree(node);
+//   // Отфильтровать дерево по выбранным нодам
+//   const filteredFlatTree = flatTree.filter((node) =>
+//     selectedIds.find((sid) => sid === node.id)
+//   );
+//   // Отфильтровать id по родительским нодам
+//   let filteredIds = selectedIds.filter((sid) => {
+//     // Поиск текущей ноды
+//     const flatTreeNode = filteredFlatTree.find((node) => node.id === sid);
+//     // Поиск родительской ноды
+//     const hasParent = filteredFlatTree.find(
+//       (node) => node.id === flatTreeNode?.parentID
+//     );
 
-    return flatTreeNode && !hasParent;
-  });
+//     return flatTreeNode && !hasParent;
+//   });
 
-  return filteredIds;
-};
+//   return filteredIds;
+// };
 
 /** Скачать файл по URL */
 export async function onClickDownloadFileByUrl(url?: string, fileName?: string) {
 	try {
 		if(!url) return;
-
-		const response = await fetch(url);
-		const blob = await response.blob();
+    
+		const fileNameCalculated = fileName || url.substring(url.lastIndexOf("/") + 1);
+		const response = await Scripts.downloadFileBucket(url, fileNameCalculated)
+		const blob = new Blob([response.arrayBuffer], { type: response.contentType});
 		const link = document.createElement("a");
 
 		link.href = URL.createObjectURL(blob);
-		link.download = fileName || url.substring(url.lastIndexOf("/") + 1);
-
+		link.download = fileNameCalculated;
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
 		URL.revokeObjectURL(link.href); // Освобождаем URL, созданный createObjectURL
-    } catch (error) {
-		console.error("Ошибка при скачивании файла:", error);
-    }
+  } catch (error) {
+    console.error("Ошибка при скачивании файла:", error);
+  }
 }
 
 export default {
@@ -272,7 +273,7 @@ export default {
   getDataFromDraft,
   saveState,
   copy,
-  findItemById,
-  getAllSelectedCodes,
-  getAllChildIds,
+  // findItemById,
+  // getAllSelectedCodes,
+  // getAllChildIds,
 };
